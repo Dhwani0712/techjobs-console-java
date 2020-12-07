@@ -62,7 +62,7 @@ public class JobData {
      * with "Enterprise Holdings, Inc".
      *
      * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param value Value of the field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -124,5 +124,29 @@ public class JobData {
             e.printStackTrace();
         }
     }
+    public static ArrayList<HashMap<String, String>> findByValue (String value) {
+        loadData();
 
+        ArrayList<HashMap<String, String>> filteredJobs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> duplicateJobs = new ArrayList<>();
+        String[] columns = new String[]{"name", "employer", "location", "position type", "core competency"};
+
+
+        for (int i = 0; i < columns.length; i++) {
+
+
+            for (HashMap<String, String> row : allJobs) {
+                String aValue = row.get(columns[i]);
+
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    if (!duplicateJobs.contains(row)) {
+                        filteredJobs.add(row);
+                        duplicateJobs.add(row);
+                    }
+                }
+
+            }
+        }
+        return filteredJobs;
+    }
 }
