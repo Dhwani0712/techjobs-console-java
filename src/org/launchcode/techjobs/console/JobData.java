@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 /**
@@ -74,15 +75,16 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
 
         return jobs;
     }
+
 
     /**
      * Read in data from a CSV file and store it in a list
@@ -124,29 +126,23 @@ public class JobData {
             e.printStackTrace();
         }
     }
-    public static ArrayList<HashMap<String, String>> findByValue (String value) {
+    public static ArrayList<HashMap<String, String>> findByValue(String searchTerm) {
+
+
         loadData();
 
-        ArrayList<HashMap<String, String>> filteredJobs = new ArrayList<>();
-        ArrayList<HashMap<String, String>> duplicateJobs = new ArrayList<>();
-        String[] columns = new String[]{"name", "employer", "location", "position type", "core competency"};
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
+        for (HashMap<String, String> row : allJobs) {
+            for(String column : row.keySet()){
+                String aValue = row.get(column);
+                if(aValue.toLowerCase().contains(searchTerm.toLowerCase())){
 
-        for (int i = 0; i < columns.length; i++) {
-
-
-            for (HashMap<String, String> row : allJobs) {
-                String aValue = row.get(columns[i]);
-
-                if (aValue.toLowerCase().contains(value.toLowerCase())) {
-                    if (!duplicateJobs.contains(row)) {
-                        filteredJobs.add(row);
-                        duplicateJobs.add(row);
-                    }
+                    break;
                 }
-
             }
         }
-        return filteredJobs;
+        return jobs;
     }
 }
+

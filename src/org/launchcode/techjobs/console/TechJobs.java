@@ -110,33 +110,21 @@ public class TechJobs {
     }
 
     // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    public static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
         if (someJobs.isEmpty()) {
             System.out.println("No Results Found. ");
-        }else{
-            for (int i = 0; i < someJobs.size(); i++) {
-                System.out.println("\n*****");
-                //System.out.println(someJobs.get(i));
-                for (Map.Entry<String, String> entry : someJobs.get(i).entrySet()) {
-                    if (entry.getKey().equals("position type")) {
-                        System.out.println("position type: " + entry.getValue());
-                    }
-                    if (entry.getKey().equals("name")) {
-                        System.out.println("name: " + entry.getValue());
-                    }
-                    if (entry.getKey().equals("employer")) {
-                        System.out.println("employer: " + entry.getValue());
-                    }
-                    if (entry.getKey().equals("location")) {
-                        System.out.println("location: " + entry.getValue());
-                    }
-                    if (entry.getKey().equals("core competency")) {
-                        System.out.println("core competency: " + entry.getValue());
-                    }
-                }
-            }
-            System.out.println("*****");
         }
+        for (HashMap<String, String> job: someJobs) {
+            System.out.println("*****");
+
+            for (Map.Entry<String, String> posting : job.entrySet()) {
+                System.out.println(posting.getKey() + ": " + posting.getValue());
+            }
+            System.out.println("*****\n");
+        }
+
     }
 }
+
+
