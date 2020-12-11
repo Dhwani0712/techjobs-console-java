@@ -3,6 +3,7 @@ package org.launchcode.techjobs.console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -44,6 +45,7 @@ public class TechJobs {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
+                    Collections.sort(results);
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
@@ -112,16 +114,18 @@ public class TechJobs {
     // Print a list of jobs
     public static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        if (someJobs.isEmpty()) {
-            System.out.println("No Results Found. ");
-        }
-        for (HashMap<String, String> job: someJobs) {
-            System.out.println("*****");
+        if(!someJobs.isEmpty()) {
+            for (HashMap<String, String> myMap : someJobs) {
+                System.out.println("*******************");
+                for (Map.Entry<String, String> entry : myMap.entrySet()) {
+                    System.out.println(entry.getKey() + " : " + entry.getValue());
 
-            for (Map.Entry<String, String> posting : job.entrySet()) {
-                System.out.println(posting.getKey() + ": " + posting.getValue());
+                }
             }
-            System.out.println("*****\n");
+            System.out.println("*******************");
+        }
+        else {
+            System.out.println(" No results found ");
         }
 
     }
